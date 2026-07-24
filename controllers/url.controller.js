@@ -25,6 +25,31 @@ async function handleGetNewShortURL(req, res) {
 
 }
 
+
+async function redirectToShortId(req,res) {
+    const shortId = req.params.shortId;
+
+    if (!shortId) {
+        return res.status(401).json({
+            message:"Enter shortId in parametr"
+        })
+    }
+
+    const entry = await URL.findOneAndUpdate({
+        shortId,
+    }, {
+        $push: {
+            visitHistory: Date.now()
+        }
+    })
+    res.redirect(entry.redirectUrl).status(200).json({
+        message:"Redirect Succesfully..."
+    })
+
+
+}
+
 module.exports = {
     handleGetNewShortURL,
+    redirectToShortId
 }
