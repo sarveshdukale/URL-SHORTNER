@@ -10,8 +10,8 @@ async function handleGetNewShortURL(req, res) {
         })
     }
 
-    const ShortID = shortid.generate(8)
-    
+    const ShortID = shortid(8);
+
     await URL.create({
         shortId: ShortID,
         redirectUrl: body.url,
@@ -34,22 +34,38 @@ async function redirectToShortId(req,res) {
             message:"Enter shortId in parametr"
         })
     }
-
     const entry = await URL.findOneAndUpdate({
         shortId,
     }, {
         $push: {
-            visitHistory: Date.now()
+            visitHistory: { timestamps:Date.now() } 
         }
     })
-    res.redirect(entry.redirectUrl).status(200).json({
-        message:"Redirect Succesfully..."
+
+    if (!entry) {
+        return res.status(401).json({
+            message: "URL not found"
+        })
+    }
+
+    return res.redirect(entry.redirectUrl); 
+
+}
+
+
+async function handleUrlAnalytics(req,res) {
+    const shortId = req.params.shortId;
+    const result = await URL.findOne({ shortId })
+    
+    return res.status(200).json({
+        visitCount: result.visitHistory.length,
+        visitHistory:result.visitHistory
     })
-
-
+    
 }
 
 module.exports = {
     handleGetNewShortURL,
-    redirectToShortId
+    redirectToShortId,
+    handleUrlAnalytics,
 }
