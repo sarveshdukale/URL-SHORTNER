@@ -12,5 +12,7 @@ const urlRoute = require("./routes/url.route");
 
 app.use("/api/url", urlRoute);
 
+app.use("api/user")
+
 DBConnect();
 app.listen(PORT,()=> console.log(`Server running on ${PORT}`))
