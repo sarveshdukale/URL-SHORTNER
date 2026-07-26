@@ -4,13 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body{
+        font-family:  Geneva, Tahoma, sans-serif;
+        text-align: center;
+      }
+      p{
+        display: inline;
+        font-weight: 800;
+      }
+      input{
+        width: 400px;
+        height: 30px;
+        display: inline-block
+      }
+      button{
+        height: 50px;
+        width: 150px;
+        font-size: 20px;
+        margin-top:15px ;
+        border-radius: 20px;
+        background-color: yellow;
+        color: red;
+      }
+    </style>
   </head>
   <body>
-    <h1>All URLs</h1>
-    <ul>
-        <% urls.forEach(url=> { %>
-        <li> <%= url.redirectUrl %></li>
-        <% }) %>
-    </ul>
+    <h1>URL Shortener</h1>
+    <form method="post" action="/api/url">
+      <p>Enter Valid URL :</p>
+      <input type="text" placeholder="https://www.example.com"><br>
+      <button type="submit">Genrate</button>
+    </form>
   </body>
 </html>
