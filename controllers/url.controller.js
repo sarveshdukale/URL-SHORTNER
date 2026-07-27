@@ -4,7 +4,10 @@ const URL = require("../models/url.model");
 
 async function handleShowAllURL(req, res) {
   const allUrls = await URL.find({});
-  res.render("index", { urls: allUrls });
+  return res.status(200).json({
+    urls: allUrls,
+  });
+  // res.render("index", { urls: allUrls });
 }
 
 async function handleGetNewShortURL(req, res) {

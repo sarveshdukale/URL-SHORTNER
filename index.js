@@ -10,6 +10,9 @@ app.set("views", path.resolve("./views"));
 
 const urlRoute = require("./routes/url.route");
 const authRoute = require("./routes/auth.route");
+const staticRoute = require("./routes/static.route");
+
+app.use("/", staticRoute);
 
 app.use("/api/url", urlRoute);
 
