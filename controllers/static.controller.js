@@ -7,7 +7,13 @@ function renderLoginPage(req, res) {
 }
 
 
+function renderSignupPage(req, res) {
+    return res.render("signup");
+}
+
+
 module.exports = {
     renderHomePage,
     renderLoginPage,
+    renderSignupPage
 }
