@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { handleGetNewShortURL,redirectToShortId,handleUrlAnalytics,handleShowAllURL } = require("../controllers/url.controller")
+const { handleGetNewShortURL, redirectToShortId, handleUrlAnalytics, handleShowAllURL } = require("../controllers/url.controller");
 
-router.get("/",handleShowAllURL)
+const {restrictToLoggedinUsersOnly} = require("../middlewares/auth.middleware")
+
+router.get("/", restrictToLoggedinUsersOnly , handleShowAllURL);
 
 router.post("/", handleGetNewShortURL);
 
