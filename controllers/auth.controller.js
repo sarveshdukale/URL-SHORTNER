@@ -1,8 +1,10 @@
+const { v4: uuidv4 } = require("uuid");
 const User = require("../models/user.model");
+const {setUser,getUser} = require("../service/auth.service")
 
 async function handleRegisterUser(req, res) {   
-    const body = req.body;
-
+  const body = req.body;
+  
     if (!body) {
         return res.status(401).json({
             error:"Plese enter name, email and password",
@@ -14,40 +16,37 @@ async function handleRegisterUser(req, res) {
         email:body.email,
         password:body.password,
     })
-
-    res.status(201).json({
-        Success: "User Registerd Succesfully",
-        user
-    })
+  
+    // res.status(201).json({
+    //     Success: "User Registerd Succesfully",
+    //     user
+    // })
+  return res.redirect("/")
 }
 
 async function handleLoginUser(req, res) {
   const body = req.body;
-
-  if (!body) {
-    return res.status(401).json({
-      error: "Plese enter email and password",
-    });
-  }
 
   const user = await User.findOne({
     email: body.email,
     password: body.password,
   });
     
-    if (!user) {
-        return res.status(404).json({
-            err:"User not found"
-        })
-    }
 
-    
-  res.status(201).json({
-    Success: "User Succesfully loged in",
-    user,
-  });
+  if (!user) {
+    return res.render("login", {
+      err: "wrong email or password",
+    });
+  };
+
+  const sessionId = uuidv4();
+  setUser(sessionId, user);
+  res.cookie("uid",sessionId)
+  return res.redirect("/");
+ 
 }
 
 module.exports = {
-    handleRegisterUser,
+  handleRegisterUser,
+  handleLoginUser,
 }

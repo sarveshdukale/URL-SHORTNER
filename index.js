@@ -3,8 +3,10 @@ const app = express();
 const DBConnect = require("./config/db")
 const PORT = 3000;
 const path = require("path");
-app.use(express.urlencoded({ extended: true })) 
-app.use(express.json())
+const cookieParser = require("cookie-parser");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
