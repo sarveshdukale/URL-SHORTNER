@@ -1,5 +1,7 @@
+const User = require("../models/user.model");
+
 function renderHomePage(req, res) {
-    return res.render("index");
+    return res.render("index",User);
 }
 
 function renderLoginPage(req, res) {
