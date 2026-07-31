@@ -31,19 +31,24 @@ async function handleLoginUser(req, res) {
     email: body.email,
     password: body.password,
   });
-    
+
+
+  
+  
 
   if (!user) {
-    return res.render("login", {
-      err: "wrong email or password",
-    });
+    res.json({
+      message:"User not found plese register"
+    })
+    return res.redirect("/signup");
   };
 
   const sessionId = uuidv4();
   setUser(sessionId, user);
   res.cookie("uid",sessionId)
-  return res.redirect("/");
+  return res.render("index")
  
+  
 }
 
 module.exports = {
