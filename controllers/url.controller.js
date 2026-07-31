@@ -1,6 +1,7 @@
 const shortid = require("shortid");
 
-const URL = require("../models/url.model");
+const  URL = require("../models/url.model");
+const { user } = require("../models/user.model")
 
 async function handleShowAllURL(req, res) {
   const allUrls = await URL.find({});
@@ -12,6 +13,8 @@ async function handleShowAllURL(req, res) {
 
 async function handleGetNewShortURL(req, res) {
   const body = req.body;
+  console.log(req.user);
+  
   if (!body.url) {
     return res.status(400).json({
       message: "URL not found.",
@@ -24,6 +27,7 @@ async function handleGetNewShortURL(req, res) {
     shortId: ShortID,
     redirectUrl: body.url,
     visitHistory: [],
+    createdBy:req.user._id,
   });
 
   return res.status(201).json({
