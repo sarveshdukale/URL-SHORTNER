@@ -39,6 +39,36 @@
       <input type="text" name="url" placeholder="https://www.example.com"><br>
       <button type="submit">Genrate</button>
     </form>
+    <div style="margin-top: 30px">
+      <% if (locals.urls) { %>
+        <table>
+          <thead>
+            <th>S. No</th>
+            <th>ShortID</th>
+            <th>Redirect</th>
+            <th>Clicks</th>
+          </thead>
+          <tbody>
+            <% urls.forEach((url, index)=> { %>
+              <tr>
+                <td>
+                  <%= index + 1 %>
+                </td>
+                <td>
+                  <%= url.shortId %>
+                </td>
+                <td>
+                  <%= url.redirectURL %>
+                </td>
+                <td>
+                  <%= url.visitHistory.length %>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+        <% } %>
+    </div>
     <div class="userUrl" >
       <h3>Your URLs</h3>
       <table>
