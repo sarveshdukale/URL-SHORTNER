@@ -27,7 +27,7 @@ async function handleGetNewShortURL(req, res) {
     shortId: ShortID,
     redirectUrl: body.url,
     visitHistory: [],
-    createdBy:req.user._id,
+    createdBy:user._id,
   });
 
   return res.status(201).json({
