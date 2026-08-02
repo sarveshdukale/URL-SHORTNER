@@ -40,11 +40,17 @@ async function handleLoginUser(req, res) {
     res.json({
       message:"User not found plese register"
     })
-    return res.redirect("/signup");
+    // return res.redirect("/signup");
   };
 
   const sessionId = uuidv4();
   setUser(sessionId, user);
+
+  console.log(sessionId);
+  console.log(user);
+  
+  
+
   res.cookie("uid",sessionId)
   return res.render("index")
  
