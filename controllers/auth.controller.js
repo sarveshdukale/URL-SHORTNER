@@ -37,7 +37,7 @@ async function handleLoginUser(req, res) {
   
 
   if (!user) {
-    res.json({
+    return res.json({
       message:"User not found plese register"
     })
     // return res.redirect("/signup");
