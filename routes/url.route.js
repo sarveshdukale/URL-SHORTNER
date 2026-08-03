@@ -6,7 +6,7 @@ const {restrictToLoggedinUsersOnly} = require("../middlewares/auth.middleware")
 
 router.get("/", restrictToLoggedinUsersOnly , handleShowAllURL);
 
-router.post("/", handleGetNewShortURL);
+router.post("/",restrictToLoggedinUsersOnly, handleGetNewShortURL);
 
 router.get("/:shortId", redirectToShortId);
 
